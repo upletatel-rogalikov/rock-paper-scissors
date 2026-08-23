@@ -154,6 +154,8 @@ body {
     height: 10%;
     width: 80%;
 
+    font-size: 2.8vh;
+
     display: flex;
     align-items: center;
     justify-content: center;
