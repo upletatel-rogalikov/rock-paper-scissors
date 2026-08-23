@@ -27,18 +27,17 @@ function moveToString(move) {
     return result;
 }
 
-function clearButtonStyle() {
+function clearButtonInfoStyle() {
     choice_area.querySelectorAll("button").forEach(elem => {
-        elem.classList.remove("won");
-        elem.classList.remove("lost");
-        elem.classList.remove("tied");
+        elem.classList.remove("won", "lost", "tied");
     });
 
     bot_area.querySelectorAll("button").forEach(elem => {
-        elem.classList.remove("won");
-        elem.classList.remove("lost");
-        elem.classList.remove("tied");
+        elem.classList.remove("won", "lost", "tied");
     });
+
+    info.classList.remove("won", "lost", "tied");
+    info.textContent = "";
 }
 
 function confirmMove(element) {
@@ -65,7 +64,7 @@ function confirmMove(element) {
 
 function handlePlayerMove(event) {
     // console.log(`button value : ${event.target.dataset.value}\n`);
-    clearButtonStyle();
+    clearButtonInfoStyle();
     player_move = parseInt(event.target.dataset.value);
 
     // return early if no button was clicked (placeholder)
@@ -122,6 +121,7 @@ function infoUpdate() {
     if (player_move == bot_move) {
         choice_area.querySelector(`[data-value="${player_move}"]`).classList.add("tied");
         bot_area.querySelector(`[data-value="${bot_move}"]`).classList.add("tied");
+        info.classList.add("tied");
         info.textContent += "It's a tie!";
         return;
     }
@@ -129,11 +129,13 @@ function infoUpdate() {
     if (has_won) {
         choice_area.querySelector(`[data-value="${player_move}"]`).classList.add("won");
         bot_area.querySelector(`[data-value="${bot_move}"]`).classList.add("lost");
+        info.classList.add("won");
         info.textContent += "You win! :)";
     } 
     else {
         choice_area.querySelector(`[data-value="${player_move}"]`).classList.add("lost");
         bot_area.querySelector(`[data-value="${bot_move}"]`).classList.add("won");
+        info.classList.add("lost");
         info.textContent += "You lose! :(";
     }
 }
