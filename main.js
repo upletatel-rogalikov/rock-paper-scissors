@@ -12,16 +12,16 @@ function moveToString(move) {
     let result = "";
     switch (move) {
         case 0:
-            result = "rock";
+            result = "Rock";
             break;
         case 1:
-            result = "paper";
+            result = "Paper";
             break;
         case 2:
-            result = "scissors";
+            result = "Scissors";
             break;
         default:
-            result = "not a move";
+            result = "Not a move";
             break;
     }
     return result;
