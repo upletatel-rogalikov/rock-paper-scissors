@@ -171,11 +171,12 @@ background-color: var(--color-accent-bot); hsla(25 100% 50% / 0.5)
     margin-top: 2vh;
     padding: 0 1vw;
     height: 10%;
+
+    font-size: 2.8vh;
     width: var(--info-width);
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 2vh;
 }
 
 .won {
