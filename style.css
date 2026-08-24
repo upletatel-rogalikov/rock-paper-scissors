@@ -17,6 +17,36 @@
     --color-accent-bot: #f29859;
 
     --color-primary-info: #90ee90;
+
+    --board-width: 60vw;
+    --info-width: 80%;
+
+    --title-font-size: 8vh;
+
+    --items-direction: row;
+    --item-width: 20%;
+}
+
+@media only screen and (max-width: 1600px) {
+    :root {
+        --title-font-size: 7vh;
+    }
+}
+
+@media only screen and (max-width: 1375px) {
+    :root {
+        --board-width: 100vw;
+        --title-font-size: 6vh;
+        --items-direction: column;
+        --info-width: 95%;
+    }
+}
+
+@media only screen and (max-width: 900px) {
+    :root {
+        --title-font-size: 5vh;
+        --item-width: 70%;
+    }
 }
 
 body {
@@ -26,15 +56,11 @@ body {
 
 .game_board {
     background-color: var(--color-game-board);
-
     border-radius: 25px;
     box-shadow: 5px 5px 10px grey;
-
     height: 80vh;
-    width: 60vw;
-
+    width: var(--board-width);
     margin: 5vh auto;
-
     display: flex;
     flex-direction: column;
     /*justify-content: center;*/
@@ -43,11 +69,9 @@ body {
 
 .game_title {
     color: var(--color-text-title);
-    font-size: 8vh;
-
+    font-size: var(--title-font-size);
     height: 10%;
     width: 80%;
-
     display: flex;
     justify-content: center;
 }
@@ -71,7 +95,6 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-
     font-size: 4vh;
     text-align: left;
 }
@@ -91,20 +114,17 @@ body {
 .choice_row {
     height: 50%;
     width: 90%;
-
     display: flex;
     justify-content: center;
 }
 
 .choice_row > .choice_area {
-
     border-bottom-left-radius: 15px;
     border-bottom-right-radius: 15px;
-
     width: 50%;
     display: block;
-    
     display: flex;
+    flex-direction: var(--items-direction);
     justify-content: center;
     align-items: center;
 }
@@ -121,8 +141,8 @@ body {
 
 .choice_item {
     height: 20%;
-    width: 20%;
-    margin-left: 5%;
+    width: var(--item-width);
+    margin: 2.5%;
     border-radius: 10px;
     font-size: 1.6vh;
 }
@@ -137,25 +157,23 @@ body {
 }
 
 .bot .choice_item {
-    border: 0px solid var(--color-accent-bot); /*hsla(15 100% 50% / 0.75)*/
-    background-color: var(--color-secondary-bot); /*hsla(25 100% 90% / 0.5)*/
+border: 0px solid var(--color-accent-bot); /*hsla(15 100% 50% / 0.75)*/
+background-color: var(--color-secondary-bot); /*hsla(25 100% 90% / 0.5)*/
 }
 
-.bot .choice_item:hover {
-    background-color: var(--color-accent-bot); /*hsla(25 100% 50% / 0.5)*/
-}
+/*.bot .choice_item:hover {
+background-color: var(--color-accent-bot); hsla(25 100% 50% / 0.5)
+}*/
 
 .info_row {
     background-color: var(--color-primary-info);
     border-radius: 10px;
-
-    margin-top: 2%;
-
+    margin-top: 2vh;
+    padding: 0 1vw;
     height: 10%;
-    width: 80%;
 
     font-size: 2.8vh;
-
+    width: var(--info-width);
     display: flex;
     align-items: center;
     justify-content: center;
