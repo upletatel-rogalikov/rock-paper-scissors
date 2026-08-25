@@ -38,7 +38,6 @@
         --board-width: 100vw;
         --title-font-size: 6vh;
         --items-direction: column;
-        --info-width: 95%;
     }
 }
 
@@ -46,6 +45,7 @@
     :root {
         --title-font-size: 5vh;
         --item-width: 70%;
+        --info-width: 95%;
     }
 }
 
@@ -157,8 +157,8 @@ body {
 }
 
 .bot .choice_item {
-border: 0px solid var(--color-accent-bot); /*hsla(15 100% 50% / 0.75)*/
-background-color: var(--color-secondary-bot); /*hsla(25 100% 90% / 0.5)*/
+    border: 0px solid var(--color-accent-bot); /*hsla(15 100% 50% / 0.75)*/
+    background-color: var(--color-secondary-bot); /*hsla(25 100% 90% / 0.5)*/
 }
 
 /*.bot .choice_item:hover {

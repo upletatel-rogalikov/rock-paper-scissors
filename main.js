@@ -9,16 +9,19 @@ let bot_move = -1;
 let has_won = false;
 
 function moveToString(move) {
-    let result = "";
+    let result = document.createElement('img');
     switch (move) {
         case 0:
-            result = "Rock";
+            result.src = "icons/rock.ico";
+            result.alt = "Rock";
             break;
         case 1:
-            result = "Paper";
+            result.src = "icons/paper.ico";
+            result.alt = "Paper";
             break;
         case 2:
-            result = "Scissors";
+            result.src = "icons/scissors.ico";
+            result.alt = "Scissors";
             break;
         default:
             result = "Not a move";
@@ -26,6 +29,26 @@ function moveToString(move) {
     }
     return result;
 }
+
+
+// function moveToString(move) {
+//     let result = "";
+//     switch (move) {
+//         case 0:
+//             result = "Rock";
+//             break;
+//         case 1:
+//             result = "Paper";
+//             break;
+//         case 2:
+//             result = "Scissors";
+//             break;
+//         default:
+//             result = "Not a move";
+//             break;
+//     }
+//     return result;
+// }
 
 function clearButtonInfoStyle() {
     choice_area.querySelectorAll("button").forEach(elem => {
@@ -44,19 +67,37 @@ function confirmMove(element) {
     choice_area.querySelectorAll("button").forEach(elem => {
         if (elem != element) {
             elem.dataset.confirmation = 0;
-            elem.textContent = moveToString(parseInt(elem.dataset.value));
+            elem.replaceChildren(moveToString(parseInt(elem.dataset.value)));
             return;
         }
-        
+
         if (element.dataset.confirmation == 0) {
             element.dataset.confirmation = 1;
-            element.textContent = moveToString(parseInt(element.dataset.value)) + "\u{2705}";
+            elem.replaceChildren(confirmIcon);
         } else {
             element.dataset.confirmation = 0;
-            element.textContent = moveToString(parseInt(element.dataset.value));
+            elem.replaceChildren(moveToString(parseInt(elem.dataset.value)));
         }
     });
 }
+
+// function confirmMove(element) {
+//     choice_area.querySelectorAll("button").forEach(elem => {
+//         if (elem != element) {
+//             elem.dataset.confirmation = 0;
+//             elem.textContent = moveToString(parseInt(elem.dataset.value));
+//             return;
+//         }
+        
+//         if (element.dataset.confirmation == 0) {
+//             element.dataset.confirmation = 1;
+//             element.textContent = moveToString(parseInt(element.dataset.value)) + "\u{2705}";
+//         } else {
+//             element.dataset.confirmation = 0;
+//             element.textContent = moveToString(parseInt(element.dataset.value));
+//         }
+//     });
+// }
 
 // -----------------------------------------------------------
 // entry point of the game cycle, starts on every button click
@@ -115,7 +156,7 @@ function gameUpdate() {
 function infoUpdate() {
     // console.log(`TEST: pl: ${player_move} ${typeof(player_move)}, bt: ${bot_move} ${typeof(bot_move)}`);
 
-    info.textContent = "Your move is: " + moveToString(player_move) +  ", bot move is: " + moveToString(bot_move) + ". "; 
+    info.textContent = "Your move is: " + moveToString(player_move).alt +  ", bot move is: " + moveToString(bot_move).alt + ". "; 
 
     // hacky tie check
     if (player_move == bot_move) {
@@ -146,3 +187,7 @@ choice_area.addEventListener("click", handlePlayerMove);
 
 const bot_area = document.querySelector(".choice_area.bot");
 const info = document.getElementById("info_label");
+
+const confirmIcon = document.createElement('img');
+confirmIcon.src = "icons/confirm.ico";
+confirmIcon.alt = "Confirm Move";
