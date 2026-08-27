@@ -12,15 +12,15 @@ function moveToString(move) {
     let result = document.createElement('img');
     switch (move) {
         case 0:
-            result.src = "icons/rock.ico";
+            result.src = "svg_icons/rock.svg";
             result.alt = "Rock";
             break;
         case 1:
-            result.src = "icons/paper.ico";
+            result.src = "svg_icons/paper.svg";
             result.alt = "Paper";
             break;
         case 2:
-            result.src = "icons/scissors.ico";
+            result.src = "svg_icons/scissors.svg";
             result.alt = "Scissors";
             break;
         default:
@@ -30,99 +30,61 @@ function moveToString(move) {
     return result;
 }
 
-
-// function moveToString(move) {
-//     let result = "";
-//     switch (move) {
-//         case 0:
-//             result = "Rock";
-//             break;
-//         case 1:
-//             result = "Paper";
-//             break;
-//         case 2:
-//             result = "Scissors";
-//             break;
-//         default:
-//             result = "Not a move";
-//             break;
-//     }
-//     return result;
-// }
-
 function clearButtonInfoStyle() {
-    choice_area.querySelectorAll("button").forEach(elem => {
+    for (const elem of choice_area.querySelectorAll("button")) {
         elem.classList.remove("won", "lost", "tied");
-    });
+    }
 
-    bot_area.querySelectorAll("button").forEach(elem => {
+    for (const elem of bot_area.querySelectorAll("button")) {
         elem.classList.remove("won", "lost", "tied");
-    });
+    }
 
     info.classList.remove("won", "lost", "tied");
     info.textContent = "";
 }
 
-function confirmMove(element) {
-    choice_area.querySelectorAll("button").forEach(elem => {
-        if (elem != element) {
+function confirmMove(selected_item) {
+    for (const elem of player_buttons) {
+        if (elem != selected_item) {
             elem.dataset.confirmation = 0;
             elem.replaceChildren(moveToString(parseInt(elem.dataset.value)));
-            return;
+            continue;
         }
 
-        if (element.dataset.confirmation == 0) {
-            element.dataset.confirmation = 1;
-            elem.replaceChildren(confirmIcon);
+        if (selected_item.dataset.confirmation == 0) {
+            selected_item.dataset.confirmation = 1;
+            selected_item.replaceChildren(confirmIcon);
         } else {
-            element.dataset.confirmation = 0;
-            elem.replaceChildren(moveToString(parseInt(elem.dataset.value)));
+            selected_item.dataset.confirmation = 0;
+            selected_item.replaceChildren(moveToString(parseInt(elem.dataset.value)));
         }
-    });
-}
 
-// function confirmMove(element) {
-//     choice_area.querySelectorAll("button").forEach(elem => {
-//         if (elem != element) {
-//             elem.dataset.confirmation = 0;
-//             elem.textContent = moveToString(parseInt(elem.dataset.value));
-//             return;
-//         }
-        
-//         if (element.dataset.confirmation == 0) {
-//             element.dataset.confirmation = 1;
-//             element.textContent = moveToString(parseInt(element.dataset.value)) + "\u{2705}";
-//         } else {
-//             element.dataset.confirmation = 0;
-//             element.textContent = moveToString(parseInt(element.dataset.value));
-//         }
-//     });
-// }
+    }
+}
 
 // -----------------------------------------------------------
 // entry point of the game cycle, starts on every button click
 // -----------------------------------------------------------
 
 function handlePlayerMove(event) {
-    // console.log(`button value : ${event.target.dataset.value}\n`);
     clearButtonInfoStyle();
-    player_move = parseInt(event.target.dataset.value);
+
+    player_move = parseInt(event.currentTarget.dataset.value);
 
     // return early if no button was clicked (placeholder)
     if (Number.isNaN(player_move)) {
         return;
     }
 
-    confirmMove(event.target);
+    confirmMove(event.currentTarget);
 
     // return early if move is not confirmed
-    if (event.target.dataset.confirmation == 1) {
+    if (event.currentTarget.dataset.confirmation == 1) {
         return;
     }
 
     // get player move
     // console.log(`player_move: ${player_move}`);
-
 
     // get bot move
     handleBotMove();
@@ -154,8 +116,6 @@ function gameUpdate() {
 }
 
 function infoUpdate() {
-    // console.log(`TEST: pl: ${player_move} ${typeof(player_move)}, bt: ${bot_move} ${typeof(bot_move)}`);
-
     info.textContent = "Your move is: " + moveToString(player_move).alt +  ", bot move is: " + moveToString(bot_move).alt + ". "; 
 
     // hacky tie check
@@ -181,13 +141,18 @@ function infoUpdate() {
     }
 }
 
-// callback to the whole choice_area, should be more flexible than adding a callback for each button
 const choice_area = document.querySelector(".choice_area.player");
-choice_area.addEventListener("click", handlePlayerMove);
+
+// add callbacks for each button individually because of nested elements
+const player_buttons = choice_area.querySelectorAll("button");
+for (const btn of player_buttons) {
+    console.log(btn);
+    btn.addEventListener("click", handlePlayerMove);
+}
 
 const bot_area = document.querySelector(".choice_area.bot");
 const info = document.getElementById("info_label");
 
 const confirmIcon = document.createElement('img');
-confirmIcon.src = "icons/confirm.ico";
+confirmIcon.src = "svg_icons/confirm.svg";
 confirmIcon.alt = "Confirm Move";

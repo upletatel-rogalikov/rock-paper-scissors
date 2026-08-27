@@ -54,6 +54,11 @@ body {
     font-family: Arial;
 }
 
+img {
+    width: 90%;
+    height: 90%;
+}
+
 .game_board {
     background-color: var(--color-game-board);
     border-radius: 25px;
@@ -145,6 +150,10 @@ body {
     margin: 2.5%;
     border-radius: 10px;
     font-size: 1.6vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .player .choice_item {
